@@ -1,0 +1,62 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kullanıcı Yönetimi</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Kullanıcı Yönetimi</h1>
+        
+        <form action="/add" method="POST" class="mb-4">
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" name="name" class="form-control" placeholder="İsim" required>
+                </div>
+                <div class="col">
+                    <input type="email" name="email" class="form-control" placeholder="E-posta" required>
+                </div>
+                <div class="col">
+                    <input type="number" name="age" class="form-control" placeholder="Yaş" required>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Ekle</button>
+                </div>
+            </div>
+        </form>
+
+        <h2>Kullanıcı Listesi</h2>
+        <ul class="list-group">
+            {% for user in users %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ user.name }} - {{ user.email }} - {{ user.age }} 
+                    <div>
+                        <form action="/update/{{ user.id }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-success btn-sm">Yaşı Artır</button>
+                        </form>
+                        <a href="/delete/{{ user.id }}" class="btn btn-danger btn-sm">Sil</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
